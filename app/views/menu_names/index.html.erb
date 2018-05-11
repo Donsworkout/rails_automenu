@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="paddinger">
+        <div class="menu_btn">
+          <h3 class="center reqtitle">등록된 메뉴</h3>
+          <p class="center reqsub">현재 등록된 메뉴이며 추가할 수 있습니다</p>
+            <a href="/menu_names/new" class="waves-effect waves-light btn">메뉴 추가하기</a>
+            <br><br><br><br>
+            <% if !@menunames.blank? %>
+                <% @menunames.each do |menu_name| %>
+                    <span class="menu"><%= menu_name.name %></span>
+                    <%= link_to "삭제", menu_name_path(menu_name.id), method: :delete, class: "right waves-effect waves-light btn-small red lighten-1",:data => {:confirm => '정말로 메뉴를 삭제하시겠습니까??'} %>
+                    <hr>
+                <% end %>
+            <% end %>
+            <br><br><br><br>
+        </div>
+    </div>
+</div>

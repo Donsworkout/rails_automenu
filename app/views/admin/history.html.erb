@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="paddinger">
+      <h3 class="center reqtitle">주문 내역</h3>
+      <p class="center reqsub">지금까지 생성된 모든 주문 내역입니다</p>
+        <div class="row">
+            <% @orders.each do |order| %>
+                    <% @menus = order.menus.all %>
+                    <div class="col s12">
+                      <div class="card-panel blue">
+                        <% if order.trigger.blank? %>
+                            <span class="nonordered">처리되지 않은 주문 입니다</span>
+                        <% else %>
+                            <span class="ordered">처리된 주문 입니다</h5>
+                        <% end %>
+                        <h5 class="tablename">테이블 <%= order.table.name %></h5>
+                        <p class="ordernum">주문 번호 : <%=order.id%></p>
+                        <p class="ordertime">주문 일시 : <%= order.created_at %> </p>
+                        <hr>
+                          <table class="menutable">
+                            <thead>
+                              <tr>
+                                  <th>품목</th>
+                                  <th>수량</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <% @menus.each do |menu|%>
+                              <% if menu.count != "0" %>
+                                  <tr>
+                                    <td><%=menu.name%></td>
+                                    <td><%=menu.count%></td>
+                                  </tr>
+                              <% end %>
+                            <% end %>
+                            </tbody>
+                          </table>
+                        <hr>
+                      </div>
+                    </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+

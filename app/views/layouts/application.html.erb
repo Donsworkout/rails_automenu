@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>메뉴판</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  <br><br>
+  <div class="container">
+    <ul id="slide-out" class="sidenav">
+      <li><a href="/">주문 하기</a></li>
+      <li><a href="/orders">주문 현황</a></li>
+      <li><%= link_to "주문 내역", admin_history_path, method: :get, class: "waves-effect" %></li>
+      <li><a href="/menu_names">메뉴 관리</a></li>
+      <li><div class="divider"></div></li>
+        <% if table_signed_in? %>
+          <li><%= link_to "로그아웃", destroy_table_session_path, method: :delete, class: "waves-effect" %></li>
+        <% else %>
+          <li><%= link_to "로그인", new_table_session_path, method: :get, class: "waves-effect" %></li>
+          <li><%= link_to "테이블 추가", new_table_registration_path, method: :get, class: "waves-effect" %></li>  
+        <% end %>
+    </ul>
+    <a href="#" data-target="slide-out" class="waves-effect waves-light blue lighten-2 btn-large sidenav-trigger right"> <i class="large material-icons">menu</i></a>
+  </div>
+  <br><br>
+  <% unless flash.empty? %>
+    <div id="notice">
+      <%= notice %>
+    </div>
+  <% end %>
+<%= yield %>
+</body>
+</html>
+
+<script>
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+</script>

@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="paddinger">
+        <h3 class="center reqtitle">메뉴 추가</h3>
+        <p class="center reqsub">이름을 입력하고 추가하기 버튼을 눌러주세요</p>
+        <%= form_for MenuName.new do |f| %>
+            <div class="field">
+              <%= f.label :name ,"메뉴 이름" %><br />
+              <%= f.text_field :name, autofocus: true, placeholder: "ex) 제육볶음" %>
+            </div>
+            <br><br>
+            <div class="form-group formbtn" style="text-align:center;">
+                <%= f.submit "추가하기", class: "btn-large blue" %>
+            </div>
+           <br><br><br><br><br><br>
+        <% end %>
+    </div>
+</div>

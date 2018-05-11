@@ -1,0 +1,49 @@
+<div class="container">
+    <% if !table_signed_in? %>
+        <h3 class="menutitle center">로그인 해 주세요</h3>
+        <p class="center menusub">오른쪽 설정을 눌러 테이블 번호로 로그인 해 주세요</p>
+        <% if table_signed_in? %>
+            <%= current_table.name %>
+        <% end %>
+    <% else %>
+        <h3 class="menutitle center">메뉴 선택(<%= current_table.name %>번 테이블)</h3>
+        <p class="center menusub">메뉴를 체크하고 주문하기 버튼을 눌러 주세요</p>
+        <br>
+        <% if @menus %>
+          <%= form_tag orders_path, multipart: true do %>
+            <div class="row">
+                <% @menus.each do |menu|%>
+                    <div class="col s12 m6">
+                    <%= hidden_field_tag "menu#{menu.id}", "#{menu.name}" %>
+                        <div class="input-field">
+                          <p style="font-weight:bold; font-size:21px;" class="qt0"><%= menu.name %></ps>
+                            <select name="count<%=menu.id%>" class="count">
+                              <option value="0" selected>0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+            <div class="input-field">
+              <%= button_tag "주문하기", class: "waves-effect waves-light btn-large blue right orderbtn" %>
+            </div>
+          <% end %>
+        <% end %>   
+    <% end %>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
