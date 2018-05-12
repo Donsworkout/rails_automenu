@@ -1,8 +1,11 @@
 class OrdersController < ApplicationController
 before_action :load_object, only: [:show, :edit, :update, :destroy]
+#before_action :load_lastorder, only: [:changer]
 
   def index
-    @orders = Order.where(:trigger=> false).order('created_at DESC')
+    last_id = Order.where(:trigger=> false).order('created_at ASC').last.id
+    @orders_before = Order.where('trigger = ? AND id != ?', false, last_id).order('created_at DESC')
+    @lastorder = Order.where(:trigger=> false).last
   end
   
   def new
@@ -17,7 +20,7 @@ before_action :load_object, only: [:show, :edit, :update, :destroy]
         new_menu = Menu.new(order_id: new_order.id, name: params[:"menu#{menu.id}"], count: params[:"count#{menu.id}"])
         new_menu.save
       end
-      redirect_to orders_path, notice: "주문 완료"         
+      redirect_to displays_success_path         
     else 
       redirect_to orders_path, notice: "주문에 실패하였습니다"    
     end
@@ -44,6 +47,15 @@ before_action :load_object, only: [:show, :edit, :update, :destroy]
     redirect_to orders_path, notice: "주문이 삭제되었습니다"
   end
   
+  def changer
+    last_id = Order.where(:trigger=> false).order('created_at ASC').last.id
+    @lastorder = Order.where(:trigger=> false).last
+    @orders_before = Order.where('trigger = ? AND id != ?', false, last_id).order('created_at DESC')
+      respond_to do |format|
+        format.js
+      end  
+  end
+  
   def trigger
     @order = Order.find_by(id: params[:order_id])
     if @order.trigger == true
@@ -66,6 +78,9 @@ before_action :load_object, only: [:show, :edit, :update, :destroy]
     @order = Order.find params[:id]
   end
 
+  def load_lastorder
+    @ori_lastorder = Order.where(:trigger=> false).last
+  end
 
   
 end

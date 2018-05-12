@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     post "/orderokay", to: "orders#trigger"
     resources :menus
   end
+  get 'orders/ajax/changer' => 'orders#changer'
   get "admin/history", to: "admin#history"
+  get "displays/success"
   resources :menu_names
   devise_for :tables
   # The priority is based upon order of creation: first created -> highest priority.

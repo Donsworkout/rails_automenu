@@ -1,6 +1,9 @@
 // Place all the styles related to the orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#loading{
+    margin-top:20px;
+}
 .orderbtn{
     margin-top:30px;
     margin-bottom:80px;
@@ -48,4 +51,39 @@
 .reqsub{
     margin-top:8px;
     margin-bottom:40px;
+}
+#ajaxpartial{
+    border:10px solid yellow accent-2;
+}
+.logoimg{
+    margin-top:110px;
+    width:250px;
+}
+.coverlogocss{
+    -webkit-animation: float 1.6s;
+            animation: float 1.6s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;    
+}
+@keyframes float
+{
+    0%, 100%
+    {
+        transform: translateY(0);
+    }
+    50%
+    {
+        transform: translateY(-20px);
+    }
+}
+@-webkit-keyframes float
+{
+    0%, 100%
+    {
+        -webkit-transform: translateY(0);
+    }
+    50%
+    {
+        -webkit-transform: translateY(-20px);
+    }
 }

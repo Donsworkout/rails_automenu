@@ -1,0 +1,38 @@
+
+                    <div class="col s12">
+                      <div class="card-panel orange">
+                        <% @menus = @lastorder.menus.all %>
+                        <% if lastorder.trigger.blank? %>
+                            <span class="nonordered">처리되지 않은 주문 입니다</span>
+                        <% else %>
+                            <span class="ordered">처리된 주문 입니다</h5>
+                        <% end %>
+                        <h5 class="tablename">테이블 <%= lastorder.table.name %></h5>
+                        <p class="ordernum">주문 번호 : <%=lastorder.id%></p>
+                        <p class="ordertime">주문 일시 : <%= lastorder.created_at %> </p>
+                        <hr>
+                          <table class="menutable">
+                            <thead>
+                              <tr>
+                                  <th>품목</th>
+                                  <th>수량</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <% @menus.each do |menu|%>
+                              <% if menu.count != "0" %>
+                                  <tr>
+                                    <td><%=menu.name%></td>
+                                    <td><%=menu.count%></td>
+                                  </tr>
+                              <% end %>
+                            <% end %>
+                            </tbody>
+                          </table>
+                        <hr>
+                        <% if @lastorder.trigger.blank? %>
+                            <%= link_to '주문 접수', order_orderokay_path(lastorder.id), method: "post" ,class: "okaybtn waves-effect waves-light btn black", :data => {:confirm => '주문처리를 완료합니다'}%>
+                        <% else %>
+                        <% end %>
+                      </div>
+                    </div>

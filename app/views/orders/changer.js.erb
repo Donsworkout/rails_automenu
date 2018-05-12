@@ -1,0 +1,3 @@
+ $("#ajaxpartial").addClass("hidden");
+ $("#ajaxpartial").html("<%= escape_javascript(render partial: 'changer', locals: { lastorder: @lastorder} ) %>"); 
+ $("#ajaxpartial2").html("<%= escape_javascript(render partial: 'changer2', locals: { orders_before: @orders_before} ) %>"); 

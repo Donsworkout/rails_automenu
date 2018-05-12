@@ -3,46 +3,29 @@
       <h3 class="center reqtitle">현재 요청된 주문</h3>
       <p class="center reqsub">주문은 최신 순으로 표시됩니다</p>
         <div class="row">
-            <% @orders.each do |order| %>
-                    <% @menus = order.menus.all %>
-                    <div class="col s12">
-                      <div class="card-panel blue">
-                        <% if order.trigger.blank? %>
-                            <span class="nonordered">처리되지 않은 주문 입니다</span>
-                        <% else %>
-                            <span class="ordered">처리된 주문 입니다</h5>
-                        <% end %>
-                        <h5 class="tablename">테이블 <%= order.table.name %></h5>
-                        <p class="ordernum">주문 번호 : <%=order.id%></p>
-                        <p class="ordertime">주문 일시 : <%= order.created_at %> </p>
-                        <hr>
-                          <table class="menutable">
-                            <thead>
-                              <tr>
-                                  <th>품목</th>
-                                  <th>수량</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            <% @menus.each do |menu|%>
-                              <% if menu.count != "0" %>
-                                  <tr>
-                                    <td><%=menu.name%></td>
-                                    <td><%=menu.count%></td>
-                                  </tr>
-                              <% end %>
-                            <% end %>
-                            </tbody>
-                          </table>
-                        <hr>
-                        <% if order.trigger.blank? %>
-                            <%= link_to '주문 접수', order_orderokay_path(order.id), method: "post" ,class: "okaybtn waves-effect waves-light btn black", :data => {:confirm => '주문처리를 완료합니다'}%>
-                        <% else %>
-                        <% end %>
-                      </div>
-                    </div>
-            <% end %>
+            <div id="ajaxpartial">
+              <div class="center">
+                <%= image_tag("shlogo.png", class: "logoimg coverlogocss") %>
+                <h4 class="center" id="loading">로드중.. 잠시만 기다려 주세요</h4>
+              </div>
+            </div>
+            <br><br><br>
+            <div id="ajaxpartial2">
+ 
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    setInterval(function() {
+      $.ajax({
+          type: 'GET',
+          url: '/orders/ajax/changer',
+          format: 'js'
+      });
+  }, 3000);
+});
+</script>
 
